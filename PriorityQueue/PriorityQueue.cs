@@ -14,12 +14,23 @@ namespace PriorityQueue
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            top = null;     //Nodes will be garbage collected
+            Count = 0;      //Count is now 0 since PQ is empty
         }
 
         public void Dequeue()
         {
-            throw new NotImplementedException();
+            if (IsEmpty())
+            {
+                throw new InvalidOperationException("Cannot remove from empty queue.");
+            }
+            else
+            {
+                Node<T> oldNode = top;
+                top = top.Next;
+                Count--;
+                oldNode = null;     //Do this so the node can be garbage collected
+            }
         }
 
         public void Enqueue(T item)
