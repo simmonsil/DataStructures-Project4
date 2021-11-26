@@ -29,12 +29,19 @@ namespace PriorityQueue
 
         public bool IsEmpty()
         {
-            throw new NotImplementedException();
+            return Count == 0;
         }
 
         public T Peek()
         {
-            throw new NotImplementedException();
+            if(!IsEmpty())
+            {
+                return top.Item;
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot obtain top of empty priority queue.");
+            }
         }
     }
 }
