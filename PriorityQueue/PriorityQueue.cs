@@ -9,7 +9,7 @@ namespace PriorityQueue
 {
     public class PriorityQueue<T> : IPriorityQueue<T> where T : IComparable
     {
-        private Node top;
+        private Node<T> top;
         public int Count { get; set; }
 
         public void Clear()
