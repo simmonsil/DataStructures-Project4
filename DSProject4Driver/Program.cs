@@ -1,4 +1,5 @@
 ﻿using DSProject1;
+using PriorityQueue;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace DSProject4Driver
         [STAThread]
         public static void Main(string[] args)
         {
+            
             // Setup the program
             MenuHelper.Setup();
 
