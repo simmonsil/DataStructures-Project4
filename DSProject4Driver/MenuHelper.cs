@@ -39,8 +39,6 @@ namespace DSProject1
         /// </summary>
         public static void Setup()
         {
-
-
             // Set the color of the console
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -63,8 +61,6 @@ namespace DSProject1
         /// <param name="choice">The choice<see cref="Choices"/>.</param>
         public static void MenuChoice(int choiceNumber)
         {
-
-           
 
             // While loop pulled from Dr. Bailes MenuDemoDriver
             while (choiceNumber != 6)
@@ -156,6 +152,10 @@ namespace DSProject1
             return true;
         }
 
+        private static void DisplayQueueProcess()
+        {
+
+        }
 
     }
 }
