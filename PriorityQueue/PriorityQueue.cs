@@ -35,7 +35,34 @@ namespace PriorityQueue
 
         public void Enqueue(T item)
         {
-            throw new NotImplementedException();
+            if(Count == 0)
+            {
+                top = new Node<T>(item, null);
+            }
+            else
+            {
+                Node<T> current = top;
+                Node<T> previous = null;
+
+                while (current != null && current.Item.CompareTo(item) >= 0)
+                {
+                    previous = current;
+                    current = current.Next;
+                }
+
+                Node<T> newNode = new Node<T>(item, current);
+
+                if(previous != null)
+                {
+                    previous.Next = newNode;
+                }
+                else
+                {
+                    top = newNode;
+                }
+
+            }
+            Count++;
         }
 
         public bool IsEmpty()
