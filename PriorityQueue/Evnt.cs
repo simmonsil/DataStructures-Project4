@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PriorityQueue
 {
-    enum EVENTTYPE { ENTER, LEAVE }
+    public enum EVENTTYPE { ENTER, LEAVE }
 
     public class Evnt : IComparable
     {
