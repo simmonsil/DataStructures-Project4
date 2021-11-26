@@ -12,7 +12,9 @@
 
 namespace DSProject1
 {
+    using DSProject4Driver;
     using MenuClassDemo;
+    using PriorityQueue;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -28,11 +30,18 @@ namespace DSProject1
     public static class MenuHelper
     {
         public static Menu Menu;
+        public static PriorityQueue<Evnt> PriorityQueue = new PriorityQueue<Evnt>();
+        public static DateTime OpeningTime = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 8, 0, 0);
 
-        private static int NumberOfWindows;
+        private static int NumberOfRegisters;
         private static int ServiceTime;
         private static int HoursOfOperation;
-        private static int NumberOfRegistrants;
+        private static int NumberOfPatrons;
+        private static Random rando = new Random();
+        private static TimeSpan shortest;
+        private static TimeSpan longest;
+        private static TimeSpan totalTime;
+
 
         /// <summary>
         /// The Setup is used to set define how the console will look and prompt the user with a welcome message. It will also define what the menu items will say.
@@ -72,7 +81,7 @@ namespace DSProject1
                         Console.WriteLine("How many Registrants are expected to be served in a day?");
                         var numbOfReg = Console.ReadLine();
 
-                        var parsed = Int32.TryParse(numbOfReg, out NumberOfRegistrants);
+                        var parsed = Int32.TryParse(numbOfReg, out NumberOfPatrons);
 
                         if(!parsed)
                         {
@@ -105,7 +114,7 @@ namespace DSProject1
 
                         var numbOfWindows = Console.ReadLine();
 
-                        var parsedIntWin = Int32.TryParse(numbOfWindows, out NumberOfWindows);
+                        var parsedIntWin = Int32.TryParse(numbOfWindows, out NumberOfRegisters);
 
                         if (!parsedIntWin)
                         {
@@ -132,8 +141,13 @@ namespace DSProject1
 
                         break;
                     case 5: // Run the simulation
+
                         if(!PropertiesReadyForCalculation())
                             MessageBox.Show($"{DateTime.Now}\n Please enter values for items 1-4. Value must be greater than 0 (Zero).", $"Values Not Set", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
+
+                        // if it is ready, run the simulation
+                        DoSimulation();
+
                         Console.ReadKey();
                         break;
                     case 6: // exit the program
@@ -147,14 +161,77 @@ namespace DSProject1
 
         private static bool PropertiesReadyForCalculation()
         {
-            if (NumberOfWindows == 0 || NumberOfRegistrants == 0 || ServiceTime == 0 || HoursOfOperation == 0)
+            if (NumberOfRegisters == 0 || NumberOfPatrons == 0 || ServiceTime == 0 || HoursOfOperation == 0)
                 return false;
             return true;
         }
 
-        private static void DisplayQueueProcess()
+        public static void GeneratePatronEvents()
         {
+            TimeSpan start;
+            TimeSpan interval;
+            shortest = new TimeSpan(0, 100000, 0);  //shortest stay
+            longest = new TimeSpan(0, 0, 0);        //longest stay
+            totalTime = new TimeSpan(0, 0, 0);      //total of all stays used for finding avg
 
+            for (int patron = 1; patron <= NumberOfPatrons; patron++)
+            {
+                //Random start time based on the number of minutes in the 10 hours we are open
+                start = new TimeSpan(0, rando.Next(10 * 60), 0);
+                //Random (neg. exp.) interval with a minimum of 10 minutes; expected time = 60 minutes
+                interval = new TimeSpan(0, (int)(10.0 * Distributions.NegativeExponential(50)), 0);
+                totalTime += interval;
+
+                if (shortest > interval)
+                    shortest = interval;
+                if (longest < interval)
+                    longest = interval;
+
+                //Enqueue the arrival event for this person
+                PriorityQueue.Enqueue(new Evnt(EVENTTYPE.ENTER, OpeningTime.Add(start), patron));
+                //Enqueue the departure for this event
+                PriorityQueue.Enqueue(new Evnt(EVENTTYPE.LEAVE, OpeningTime.Add(start + interval), patron));
+            }
+
+
+            int seconds = (int)(totalTime.TotalSeconds / NumberOfPatrons);   //avg for all patrons
+            TimeSpan avgTime = new TimeSpan(0, 0, seconds);
+
+            Console.WriteLine($"The average time customers spent in the museum was {avgTime}");
+            Console.ReadKey();
+        }
+
+        private static void DoSimulation()
+        {
+            int lineCount = 0;
+            maxPresent = 0;
+            int current = 0;
+
+            while (PQ.Count > 0)
+            {
+                Console.Write($"{(++lineCount).ToString().PadLeft(3)}.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($" {PQ.Peek()}");
+                Console.ForegroundColor = ConsoleColor.Blue;
+
+                if (PQ.Peek().Type == EVENTTYPE.ENTER)  //ENTER event
+                {
+                    current++;
+                    if (current > maxPresent)
+                        maxPresent = current;
+                }
+                else    //LEAVE event
+                    current--;
+
+                Console.Write($"   Customers Present: ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(current.ToString().PadLeft(2));
+                Console.ForegroundColor = ConsoleColor.Blue;
+
+                PQ.Dequeue();
+                if ((lineCount % 30) == 0)
+                    Utility.PressAnyKey();
+            }
         }
 
     }

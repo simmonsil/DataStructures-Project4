@@ -45,12 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer.cs" />
+    <Compile Include="Distributions.cs" />
     <Compile Include="MenuHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MenuDemo\MenuDemo\MenuDemo.csproj">
+      <Project>{41d95e35-a6c1-421d-b707-0eca26b8b488}</Project>
+      <Name>MenuDemo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PriorityQueue\PriorityQueue.csproj">
+      <Project>{2DDD988C-C531-4BE9-8C9C-711AA1A8689A}</Project>
+      <Name>PriorityQueue</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
