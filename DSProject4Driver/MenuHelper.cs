@@ -65,7 +65,7 @@ namespace DSProject1
                 {
                     case 1: // Set the number of Registrants
                         Console.WriteLine("How many Registrants are expected to be served in a day?");
-                        Console.ReadKey();
+                        var number = Console.ReadLine();
                         break;
 
                     case 2: // Set the number of hours of operation
