@@ -52,11 +52,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="F:\Glip-Glop\Dropbox %28Personal%29\ETSU\2021-Fall\Data Structures\Project 1\MenuDemo\MenuDemo\MenuDemo\MenuDemo.csproj">
-      <Project>{41d95e35-a6c1-421d-b707-0eca26b8b488}</Project>
-      <Name>MenuDemo</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
