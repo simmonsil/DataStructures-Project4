@@ -2,7 +2,7 @@
 //
 //	Solution/Project:  DataStructuresProject4
 //	File Name:         Program.cs
-//	Description:       YOUR DESCRIPTION HERE
+//	Description:       Main driver 
 //	Course:            CSCI 2210 - Data Structures	
 //	Authors:           Kayleigh Post - postke@etsu.edu, Joshua Trimm - trimmj@etsu.edu, Isaac Simmons - simmonsi@etsu.edu
 //	Created:           11/27/2021
@@ -16,12 +16,12 @@ namespace DSProject4Driver
     using System;
 
     /// <summary>
-    /// Defines the <see cref="Program" />.
+    /// Defines the program driver
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// The Main.
+        /// The Main method to run the program
         /// </summary>
         /// <param name="args">The args<see cref="string[]"/>.</param>
         [STAThread]
