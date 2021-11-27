@@ -55,6 +55,11 @@ namespace DSProject1
         private static double ServiceTime;
 
         /// <summary>
+        /// Defines the minimum time spent at checkout.
+        /// </summary>
+        private static double MinServiceTime;
+
+        /// <summary>
         /// Defines the total number of hours that the store is open.
         /// </summary>
         private static int HoursOfOperation;
@@ -135,7 +140,7 @@ namespace DSProject1
             Menu menu = new Menu("Simulation Menu");
 
             // Add items to the menu
-            menu = menu + "Set the number of Customers" + "Set the number of hours of operation" + "Set the number of Registers" + "Set the expected checkout duration" + "Run the simulation" + "End the program";
+            menu = menu + "Set the number of Customers" + "Set the number of hours of operation" + "Set the number of Registers" + "Set the expected checkout duration" + "Set the minimum checkout duration"+ "Run the simulation" + "End the program";
 
             // Set the menu to a global variable. 
             Menu = menu;
@@ -149,7 +154,7 @@ namespace DSProject1
         {
 
             // While loop pulled from Dr. Bailes MenuDemoDriver
-            while (choiceNumber != 6)
+            while (choiceNumber != 7)
             {
                 // check what option the user chose
                 switch (choiceNumber)
@@ -230,15 +235,33 @@ namespace DSProject1
                         }
 
                         break;
+                    case 5: // Set the minimum amount of time serviced
+                        Console.Write("What is the minimum amount of time a customer will spend in checkout, in minutes?  ");
+                        var minServiceMinutes = Console.ReadLine();
 
-                    case 5: // Run the simulation
+                        var parsedMinService = double.TryParse(minServiceMinutes, out MinServiceTime);
+
+                        if (!parsedMinService)
+                        {
+                            MessageBox.Show($"{DateTime.Now}\nPlease only use a numeric value.", $"User Input Error", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nMinimum checkout time set successfully!");
+                            PressAnyKey();
+                        }
+                        break;
+
+                    case 6: // Run the simulation
 
                         // if user didn't use the menu to set the parameters, set them to defaults specified in the documentation.
                         if (!PropertiesReadyForCalculation())
                         {
-                            NumberOfCustomers = 50;
+                            NumberOfCustomers = 600;
                             NumberOfRegisters = 3;
                             ServiceTime = 5.75;
+                            MinServiceTime = 2.0;
                             HoursOfOperation = 16;
                         }
 
@@ -250,7 +273,7 @@ namespace DSProject1
 
                         Console.ReadKey();
                         break;
-                    case 6: // exit the program
+                    case 7: // exit the program
                         break;
                 }  // end of switch
 
@@ -303,7 +326,50 @@ namespace DSProject1
         {
             Console.WriteLine("Press any key to continue... ");
             Console.ReadKey();
-        } 
+        }
+
+        /// <summary>
+        /// The DisplayLines.
+        /// </summary>
+        private static void DisplayLines()
+        {
+            int registerCount = 0;
+            string format = "0000";
+
+            Console.WriteLine("Simulating Lines");
+            PrintDashes(20);
+            foreach (var line in Registers)
+            {
+                registerCount++;
+                Console.Write($"Register #{registerCount}: ");
+
+                foreach (var customer in line)
+                {
+                    Console.Write(" {0} ", customer.CustomerId.ToString(format));
+                }
+                Console.WriteLine();
+            }
+            PrintDashes(20);
+            Console.WriteLine($"Longest Queue Encountered So Far: {longestLine}");
+            Console.WriteLine();
+            Console.Write("Arrivals: ".PadLeft(25));
+            Console.WriteLine(arrivals);
+            Console.Write("Departures: ".PadLeft(25));
+            Console.WriteLine(departures);
+            Console.WriteLine($"Events Processed So Far: {processedEvents}");
+        }
+
+        /// <summary>
+        /// The DisplayTotals.
+        /// </summary>
+        private static void DisplayTotals()
+        {
+            Console.WriteLine($"The average service time for {CustomerHolder.Count} customers was {average}");
+            Console.WriteLine($"The minimum service time was {shortest}");
+            Console.WriteLine($"The maximum service time was {longest}");
+
+            PressAnyKey();
+        }
         #endregion
 
         /// <summary>
@@ -329,7 +395,7 @@ namespace DSProject1
                 //Random start time based on the number of minutes in the 16 hours we are open
                 start = new TimeSpan(0, 0, rando.Next(HoursOfOperation * 60 * 60));
                 //Random (neg. exp.) interval with a minimum of 2 minutes; expected time = 5.75 (5 minutes and 45 seconds).
-                interval = new TimeSpan(0, 0, (int)(2.0*60 + 60*Distributions.NegativeExponential(ServiceTime - 2)));
+                interval = new TimeSpan(0, 0, (int)(60 * (MinServiceTime + Distributions.NegativeExponential(ServiceTime - MinServiceTime))));
                 totalTime += interval;
 
                 // Set how long the customer will stay.
@@ -511,52 +577,9 @@ namespace DSProject1
                 }
                 processedEvents++;
                 DisplayLines();
-                Thread.Sleep(50);
+                Thread.Sleep(100);
             }
             DisplayTotals();
-        }
-
-        /// <summary>
-        /// The DisplayLines.
-        /// </summary>
-        private static void DisplayLines()
-        {
-            int registerCount = 0;
-            string format = "0000";
-
-            Console.WriteLine("Simulating Lines");
-            PrintDashes(20);
-            foreach (var line in Registers)
-            {
-                registerCount++;
-                Console.Write($"Register #{registerCount}: ");
-
-                foreach (var customer in line)
-                {
-                    Console.Write(" {0} ", customer.CustomerId.ToString(format));
-                }
-                Console.WriteLine();
-            }
-            PrintDashes(20);
-            Console.WriteLine($"Longest Queue Encountered So Far: {longestLine}");
-            Console.WriteLine();
-            Console.Write("Arrivals: ".PadLeft(25));
-            Console.WriteLine(arrivals);
-            Console.Write("Departures: ".PadLeft(25));
-            Console.WriteLine(departures);
-            Console.WriteLine($"Events Processed So Far: {processedEvents}");
-        }
-
-        /// <summary>
-        /// The DisplayTotals.
-        /// </summary>
-        private static void DisplayTotals()
-        {
-            Console.WriteLine($"The average service time for {CustomerHolder.Count} customers was {average}");
-            Console.WriteLine($"The minimum service time was {shortest}");
-            Console.WriteLine($"The maximum service time was {longest}");
-
-            PressAnyKey();
         }
 
         /// <summary>
