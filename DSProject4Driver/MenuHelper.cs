@@ -28,33 +28,34 @@ namespace DSProject1
     /// </summary>
     public static class MenuHelper
     {
+        #region Fields
         /// <summary>
         /// Defines the Menu.
         /// </summary>
         public static Menu Menu;
 
         /// <summary>
-        /// Defines the PriorityQueue.
+        /// Defines the Priority Queue of Events.
         /// </summary>
         public static PriorityQueue<Evnt> PriorityQueue = new PriorityQueue<Evnt>();
 
         /// <summary>
-        /// Defines the OpeningTime.
+        /// Defines the time that the store opens.
         /// </summary>
         public static DateTime OpeningTime = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 8, 0, 0);
 
         /// <summary>
-        /// Defines the NumberOfRegisters.
+        /// Defines the number of registers.
         /// </summary>
         private static int NumberOfRegisters;
 
         /// <summary>
-        /// Defines the ServiceTime.
+        /// Defines the expected time spent in checkout.
         /// </summary>
         private static double ServiceTime;
 
         /// <summary>
-        /// Defines the HoursOfOperation.
+        /// Defines the total number of hours that the store is open.
         /// </summary>
         private static int HoursOfOperation;
 
@@ -69,15 +70,18 @@ namespace DSProject1
         private static Random rando = new Random();
 
         /// <summary>
-        /// Defines the shortest.
+        /// Defines the shortest time spent in checkout.
         /// </summary>
         private static TimeSpan shortest;
 
         /// <summary>
-        /// Defines the longest.
+        /// Defines the longest time spent in checkout.
         /// </summary>
         private static TimeSpan longest;
 
+        /// <summary>
+        /// Defines the average time spent in checkout.
+        /// </summary>
         private static TimeSpan average;
 
         /// <summary>
@@ -114,7 +118,9 @@ namespace DSProject1
         /// Defines the departures.
         /// </summary>
         private static int departures;
+        #endregion
 
+        #region Setup
         /// <summary>
         /// The Setup is used to set define how the console will look and prompt the user with a welcome message. It will also define what the menu items will say.
         /// </summary>
@@ -149,39 +155,45 @@ namespace DSProject1
                 switch (choiceNumber)
                 {
                     case 1: // Set the number of Customers
-                        Console.Write("How many Customers are expected to be served in a day?");
+                        Console.Write("How many Customers are expected to be served in a day?  ");
                         var numbOfReg = Console.ReadLine();
 
                         var parsed = Int32.TryParse(numbOfReg, out NumberOfCustomers);
 
                         if (!parsed)
                         {
-                            MessageBox.Show($"{DateTime.Now}\n User Input Error", $"Please only use a numeric value", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
+                            MessageBox.Show($"{DateTime.Now}\nPlease only use a numeric value.", $"User Input Error", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
 
                         }
-
+                        else
+                        {
+                            Console.WriteLine("\nNumber of customers expected set successfully!");
+                            PressAnyKey();
+                        }
 
                         break;
 
                     case 2: // Set the number of hours of operation
-
-
                         Console.Write("How many hours will the store be open?  ");
 
                         var numbOfHours = Console.ReadLine();
-
 
                         var parsedInt = Int32.TryParse(numbOfHours, out HoursOfOperation);
 
                         if (!parsedInt)
                         {
-                            MessageBox.Show($"{DateTime.Now}\n User Input Error", $"Please only use a numeric value", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
+                            MessageBox.Show($"{DateTime.Now}\nPlease only use a numeric value.", $"User Input Error", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
 
                         }
+                        else
+                        {
+                            Console.WriteLine("\nStore hours set successfully!");
+                            PressAnyKey();
+                        }
+
                         break;
 
                     case 3: // Set the number of lines
-
                         Console.Write("How many checkout lines will be simulated?  ");
 
                         var numbOfWindows = Console.ReadLine();
@@ -190,14 +202,18 @@ namespace DSProject1
 
                         if (!parsedIntWin)
                         {
-                            MessageBox.Show($"{DateTime.Now}\n User Input Error", $"Please only use a numeric value", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
-
+                            MessageBox.Show($"{DateTime.Now}\nPlease only use a numeric value.", $"User Input Error", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nNumber of checkout lines set successfully!");
+                            PressAnyKey();
                         }
 
                         break;
 
                     case 4: // Set the expected checkout duration
-                        Console.WriteLine("What is the expected service time for a Registrant, in minutes?");
+                        Console.Write("What is the expected service time for a customer, in minutes?  ");
 
                         var checkoutDuration = Console.ReadLine();
 
@@ -205,22 +221,26 @@ namespace DSProject1
 
                         if (!parsedIntService)
                         {
-                            MessageBox.Show($"{DateTime.Now}\n User Input Error", $"Please only use a numeric value", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
-
+                            MessageBox.Show($"{DateTime.Now}\nPlease only use a numeric value.", $"User Input Error", (MessageBoxButtons)MessageBoxButton.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nExpected service time set successfully!");
+                            PressAnyKey();
                         }
 
                         break;
+
                     case 5: // Run the simulation
 
                         // if user didn't use the menu to set the parameters, set them to defaults specified in the documentation.
-                        if(!PropertiesReadyForCalculation())
+                        if (!PropertiesReadyForCalculation())
                         {
-                            NumberOfCustomers = 300;
+                            NumberOfCustomers = 50;
                             NumberOfRegisters = 3;
                             ServiceTime = 5.75;
                             HoursOfOperation = 16;
                         }
-
 
                         // Create the patrons and their events.
                         GeneratePatronEvents();
@@ -248,7 +268,9 @@ namespace DSProject1
                 return false;
             return true;
         }
+        #endregion
 
+        #region I/O Utilities
         /// <summary>
         /// The Skip.
         /// </summary>
@@ -281,7 +303,8 @@ namespace DSProject1
         {
             Console.WriteLine("Press any key to continue... ");
             Console.ReadKey();
-        }
+        } 
+        #endregion
 
         /// <summary>
         /// The GeneratePatronEvents.
@@ -290,9 +313,10 @@ namespace DSProject1
         {
             TimeSpan start;
             TimeSpan interval;
-            shortest = new TimeSpan(0, 0, 0);  //shortest stay
+            shortest = new TimeSpan(0, 100000, 0);  //shortest stay
             longest = new TimeSpan(0, 0, 0);        //longest stay
             totalTime = new TimeSpan(0, 0, 0);      //total of all stays used for finding avg
+            NumberOfCustomers = Distributions.Poisson(NumberOfCustomers);   //Poisson distribution based on expected
 
             for (int patron = 1; patron <= NumberOfCustomers; patron++)
             {
@@ -303,9 +327,9 @@ namespace DSProject1
                 };
 
                 //Random start time based on the number of minutes in the 16 hours we are open
-                start = new TimeSpan(0, rando.Next(HoursOfOperation * 60), 0);
+                start = new TimeSpan(0, 0, rando.Next(HoursOfOperation * 60 * 60));
                 //Random (neg. exp.) interval with a minimum of 2 minutes; expected time = 5.75 (5 minutes and 45 seconds).
-                interval = new TimeSpan(0, (int)(2.0 + Distributions.NegativeExponential(ServiceTime - 2)), 0);
+                interval = new TimeSpan(0, 0, (int)(2.0*60 + 60*Distributions.NegativeExponential(ServiceTime - 2)));
                 totalTime += interval;
 
                 // Set how long the customer will stay.
@@ -327,9 +351,7 @@ namespace DSProject1
 
                 // Add the customer to the list of Customers visiting the store
                 CustomerHolder.Add(newCust);
-
             }
-
 
             int seconds = (int)(totalTime.TotalSeconds / NumberOfCustomers);   //avg for all patrons
             average = new TimeSpan(0, 0, seconds);
@@ -359,7 +381,6 @@ namespace DSProject1
                 if (i == 0)
                     minLine = Registers[i];
 
-
                 if (minLine.Count > Registers[i].Count)
                     minLine = Registers[i];
             }
@@ -379,7 +400,6 @@ namespace DSProject1
             {
                 if (i == 0)
                     maxLine = Registers[i];
-
 
                 if (maxLine.Count < Registers[i].Count)
                     maxLine = Registers[i];
@@ -403,7 +423,6 @@ namespace DSProject1
         /// </summary>
         private static void DoSimulation()
         {
-
             longestLine = 0;
             processedEvents = 0;
             arrivals = 0;
@@ -429,7 +448,6 @@ namespace DSProject1
 
                     if (currentShortestLine.Count == 0)
                     {
-
                         // Put the customer in the queue, i.e., the shortest line.
                         currentShortestLine.Enqueue(getTheNextCustomer);
 
@@ -448,7 +466,6 @@ namespace DSProject1
                         // Put the customer in the queue, i.e., the shortest line.
                         currentShortestLine.Enqueue(getTheNextCustomer);
                     }
-
 
                     // Then remove it form the Priority Queue.
                     PriorityQueue.Dequeue();
@@ -489,14 +506,12 @@ namespace DSProject1
 
                             //Enqueue the departure for this event
                             PriorityQueue.Enqueue(leavingEvent);
-
                         }
-
                     }
                 }
                 processedEvents++;
                 DisplayLines();
-                Thread.Sleep(300);
+                Thread.Sleep(50);
             }
             DisplayTotals();
         }
@@ -518,7 +533,6 @@ namespace DSProject1
 
                 foreach (var customer in line)
                 {
-
                     Console.Write(" {0} ", customer.CustomerId.ToString(format));
                 }
                 Console.WriteLine();
@@ -526,8 +540,10 @@ namespace DSProject1
             PrintDashes(20);
             Console.WriteLine($"Longest Queue Encountered So Far: {longestLine}");
             Console.WriteLine();
-            Console.WriteLine($"Arrivals: {arrivals}");
-            Console.WriteLine($"Departures: {departures}");
+            Console.Write("Arrivals: ".PadLeft(25));
+            Console.WriteLine(arrivals);
+            Console.Write("Departures: ".PadLeft(25));
+            Console.WriteLine(departures);
             Console.WriteLine($"Events Processed So Far: {processedEvents}");
         }
 
@@ -540,7 +556,7 @@ namespace DSProject1
             Console.WriteLine($"The minimum service time was {shortest}");
             Console.WriteLine($"The maximum service time was {longest}");
 
-            Console.ReadKey();
+            PressAnyKey();
         }
 
         /// <summary>
