@@ -11,3 +11,10 @@ F:\Glip-Glop\Dropbox (Personal)\ETSU\2021-Fall\Data Structures\Project 1\MenuDem
 F:\Glip-Glop\Dropbox (Personal)\ETSU\2021-Fall\Data Structures\Project 1\MenuDemo\MenuDemo\MenuDemo\obj\Debug\MenuDemo.csproj.CoreCompileInputs.cache
 F:\Glip-Glop\Dropbox (Personal)\ETSU\2021-Fall\Data Structures\Project 1\MenuDemo\MenuDemo\MenuDemo\obj\Debug\MenuDemo.exe
 F:\Glip-Glop\Dropbox (Personal)\ETSU\2021-Fall\Data Structures\Project 1\MenuDemo\MenuDemo\MenuDemo\obj\Debug\MenuDemo.pdb
+C:\Users\Joshua\source\repos\DataStructures-Project4\MenuDemo\MenuDemo\bin\Debug\MenuDemo.exe.config
+C:\Users\Joshua\source\repos\DataStructures-Project4\MenuDemo\MenuDemo\bin\Debug\MenuDemo.exe
+C:\Users\Joshua\source\repos\DataStructures-Project4\MenuDemo\MenuDemo\bin\Debug\MenuDemo.pdb
+C:\Users\Joshua\source\repos\DataStructures-Project4\MenuDemo\MenuDemo\obj\Debug\MenuDemo.csproj.AssemblyReference.cache
+C:\Users\Joshua\source\repos\DataStructures-Project4\MenuDemo\MenuDemo\obj\Debug\MenuDemo.csproj.CoreCompileInputs.cache
+C:\Users\Joshua\source\repos\DataStructures-Project4\MenuDemo\MenuDemo\obj\Debug\MenuDemo.exe
+C:\Users\Joshua\source\repos\DataStructures-Project4\MenuDemo\MenuDemo\obj\Debug\MenuDemo.pdb

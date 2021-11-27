@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="DSProject4Driver.header" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MenuDemo\MenuDemo\MenuDemo.csproj">
