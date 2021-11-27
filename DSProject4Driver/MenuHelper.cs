@@ -166,6 +166,28 @@ namespace DSProject1
             return true;
         }
 
+        public static void Skip(int numLineBreaks)
+        {
+            for (int i = 0; i < numLineBreaks; i++)
+            {
+                Console.WriteLine();
+            }    
+        }
+
+        public static void PrintDashes(int numDashes)
+        {
+            for (int i = 0; i < numDashes; i++)
+            {
+                Console.Write("-");
+            }
+        }
+
+        public static void PressAnyKey()
+        {
+            Console.WriteLine("Press any key to continue... ");
+            Console.ReadKey();
+        }
+
         public static void GeneratePatronEvents()
         {
             TimeSpan start;
@@ -204,17 +226,17 @@ namespace DSProject1
         private static void DoSimulation()
         {
             int lineCount = 0;
-            maxPresent = 0;
+            maxPresent = 0;     //declared in the driver in Bailes's code?
             int current = 0;
 
-            while (PQ.Count > 0)
+            while (PriorityQueue.Count > 0)
             {
                 Console.Write($"{(++lineCount).ToString().PadLeft(3)}.");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write($" {PQ.Peek()}");
+                Console.Write($" {PriorityQueue.Peek()}");
                 Console.ForegroundColor = ConsoleColor.Blue;
 
-                if (PQ.Peek().Type == EVENTTYPE.ENTER)  //ENTER event
+                if (PriorityQueue.Peek().Type == EVENTTYPE.ENTER)  //ENTER event
                 {
                     current++;
                     if (current > maxPresent)
@@ -228,9 +250,9 @@ namespace DSProject1
                 Console.WriteLine(current.ToString().PadLeft(2));
                 Console.ForegroundColor = ConsoleColor.Blue;
 
-                PQ.Dequeue();
+                PriorityQueue.Dequeue();
                 if ((lineCount % 30) == 0)
-                    Utility.PressAnyKey();
+                    PressAnyKey();
             }
         }
 
