@@ -41,6 +41,7 @@ namespace DSProject1
         private static TimeSpan shortest;
         private static TimeSpan longest;
         private static TimeSpan totalTime;
+        private static int maxPresent;
 
 
         /// <summary>
