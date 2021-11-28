@@ -2,7 +2,8 @@
 //
 //	Solution/Project:  DataStructuresProject4
 //	File Name:         Customer.cs
-//	Description:       YOUR DESCRIPTION HERE
+//	Description:       The Customer object. Is associated with an ENTER and LEAVE event and has an ID number
+//	                   for graphical representation.
 //	Course:            CSCI 2210 - Data Structures	
 //	Authors:           Kayleigh Post - postke@etsu.edu, Joshua Trimm - trimmj@etsu.edu, Isaac Simmons - simmonsi@etsu.edu
 //	Created:           11/27/2021
@@ -16,7 +17,7 @@ namespace DSProject4Driver
     using System;
 
     /// <summary>
-    /// Defines the <see cref="Customer" />.
+    /// Defines the <see cref="Customer" /> object.
     /// </summary>
     public class Customer
     {
