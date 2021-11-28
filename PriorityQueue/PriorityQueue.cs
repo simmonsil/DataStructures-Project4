@@ -2,7 +2,7 @@
 //
 //	Solution/Project:  DataStructuresProject4
 //	File Name:         PriorityQueue.cs
-//	Description:       YOUR DESCRIPTION HERE
+//	Description:       Priority queue, a queue that changes where something is located in the queue depending on their priority
 //	Course:            CSCI 2210 - Data Structures	
 //	Authors:           Kayleigh Post - postke@etsu.edu, Joshua Trimm - trimmj@etsu.edu, Isaac Simmons - simmonsi@etsu.edu
 //	Created:           11/27/2021
@@ -16,23 +16,23 @@ namespace PriorityQueue
     using System;
 
     /// <summary>
-    /// Defines the <see cref="PriorityQueue{T}" />.
+    /// Implements a priority queue
     /// </summary>
     /// <typeparam name="T">.</typeparam>
     public class PriorityQueue<T> : IPriorityQueue<T> where T : IComparable
     {
         /// <summary>
-        /// Defines the top.
+        /// Defines what is on the top of the priority queue
         /// </summary>
         private Node<T> top;
 
         /// <summary>
-        /// Gets or sets the Count.
+        /// Gets or sets the count
         /// </summary>
         public int Count { get; set; }
 
         /// <summary>
-        /// The Clear.
+        /// Clears the queue
         /// </summary>
         public void Clear()
         {
@@ -41,7 +41,7 @@ namespace PriorityQueue
         }
 
         /// <summary>
-        /// The Dequeue.
+        /// Dequeues the next person in the queue
         /// </summary>
         public void Dequeue()
         {
@@ -59,7 +59,7 @@ namespace PriorityQueue
         }
 
         /// <summary>
-        /// The Enqueue.
+        /// Enqueues something into the queue
         /// </summary>
         /// <param name="item">The item<see cref="T"/>.</param>
         public void Enqueue(T item)
@@ -95,7 +95,7 @@ namespace PriorityQueue
         }
 
         /// <summary>
-        /// The IsEmpty.
+        /// Returns if the queue is empty
         /// </summary>
         /// <returns>The <see cref="bool"/>.</returns>
         public bool IsEmpty()
@@ -104,7 +104,7 @@ namespace PriorityQueue
         }
 
         /// <summary>
-        /// The Peek.
+        /// Returns what is the next item to be dequeued without dequeueing
         /// </summary>
         /// <returns>The <see cref="T"/>.</returns>
         public T Peek()
