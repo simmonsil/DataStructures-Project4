@@ -2,7 +2,7 @@
 //
 //	Solution/Project:  DataStructuresProject4
 //	File Name:         IPriorityQueue.cs
-//	Description:       IPriorityQueue interface that implements a priority queue
+//	Description:       IPriorityQueue interface that implements a priority queue. This code was pulled from Dr. Bailes slides.
 //	Course:            CSCI 2210 - Data Structures	
 //	Authors:           Kayleigh Post - postke@etsu.edu, Joshua Trimm - trimmj@etsu.edu, Isaac Simmons - simmonsi@etsu.edu
 //	Created:           11/27/2021

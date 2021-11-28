@@ -2,7 +2,7 @@
 //
 //	Solution/Project:  DataStructuresProject4
 //	File Name:         PriorityQueue.cs
-//	Description:       Priority queue, a queue that changes where something is located in the queue depending on their priority
+//	Description:       Priority queue, a queue that changes where something is located in the queue depending on their priority. This code was pulled from Dr. Bailes slides.
 //	Course:            CSCI 2210 - Data Structures	
 //	Authors:           Kayleigh Post - postke@etsu.edu, Joshua Trimm - trimmj@etsu.edu, Isaac Simmons - simmonsi@etsu.edu
 //	Created:           11/27/2021

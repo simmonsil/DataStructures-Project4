@@ -255,7 +255,7 @@ namespace DSProject1
 
                         // if user didn't use the menu to set one of the parameters, set it to default specified in the documentation.
                         if (NumberOfCustomers == 0)
-                            NumberOfCustomers = 600;
+                            NumberOfCustomers = 200;
                         if (NumberOfRegisters == 0)
                             NumberOfRegisters = 3;
                         if (ServiceTime == 0)
@@ -514,6 +514,8 @@ namespace DSProject1
             {
                 // Get the longest line count so far.
                 longestLine = GetLongestLine().Count < longestLine ? longestLine : GetLongestLine().Count;
+
+                // on each iteration clear the previous results so the new results can be displayed.
                 Console.Clear();
 
                 if (PriorityQueue.Peek().Type == EVENTTYPE.ENTER)  //ENTER event
@@ -585,9 +587,9 @@ namespace DSProject1
                         }
                     }
                 }
-                processedEvents++;
-                DisplayLines();
-                Thread.Sleep(100);
+                processedEvents++; // count the events that have been processed
+                DisplayLines(); // separate the register lines from the stats at the bottom
+                Thread.Sleep(300); // sleep for each updated iteration. 
             }
             DisplayTotals();
         } 

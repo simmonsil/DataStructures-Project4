@@ -2,7 +2,7 @@
 //
 //	Solution/Project:  DataStructuresProject4
 //	File Name:         IContainer.cs
-//	Description:       The IContainer interface, providing functionality to the Priority Queue.
+//	Description:       The IContainer interface, providing functionality to the Priority Queue. This code was pulled from Dr. Bailes slides.
 //	Course:            CSCI 2210 - Data Structures	
 //	Authors:           Kayleigh Post - postke@etsu.edu, Joshua Trimm - trimmj@etsu.edu, Isaac Simmons - simmonsi@etsu.edu
 //	Created:           11/27/2021

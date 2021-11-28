@@ -2,7 +2,7 @@
 //
 //	Solution/Project:  DataStructuresProject4
 //	File Name:         Distributions.cs
-//	Description:       Contains random number distributions for generating number of customers and checkout duration.
+//	Description:       Contains random number distributions for generating number of customers and checkout duration. This code was pulled from Dr. Bailes slides.
 //	Course:            CSCI 2210 - Data Structures	
 //	Authors:           Kayleigh Post - postke@etsu.edu, Joshua Trimm - trimmj@etsu.edu, Isaac Simmons - simmonsi@etsu.edu
 //	Created:           11/27/2021
